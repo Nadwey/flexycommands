@@ -1,6 +1,7 @@
 plugins {
     java
     idea
+    `maven-publish`
 }
 
 group = "pl.nadwey"
@@ -20,4 +21,16 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok:1.18.32")
     annotationProcessor("org.projectlombok:lombok:1.18.32")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = "flexycommands"
+            version = project.version.toString()
+
+            from(components["java"])
+        }
+    }
 }
