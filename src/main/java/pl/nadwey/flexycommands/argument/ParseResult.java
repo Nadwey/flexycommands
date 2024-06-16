@@ -7,7 +7,6 @@ import lombok.Getter;
 @Getter
 public class ParseResult {
 
-	private Object value;
 	private String remaining;
 	private boolean valid;
 	private boolean shouldContinue;

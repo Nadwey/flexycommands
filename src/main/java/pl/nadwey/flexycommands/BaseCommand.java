@@ -3,7 +3,7 @@ package pl.nadwey.flexycommands;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
-import pl.nadwey.flexycommands.argument.PCCommandArgument;
+import pl.nadwey.flexycommands.argument.BaseCommandArgument;
 
 public final class BaseCommand {
 
@@ -14,7 +14,7 @@ public final class BaseCommand {
 	private final String name;
 
 	@Getter
-	private final List<PCCommandArgument> arguments = new ArrayList<>();
+	private final List<BaseCommandArgument> arguments = new ArrayList<>();
 
 	private BaseCommand(String prefix, String name) {
 		this.prefix = prefix;
@@ -25,7 +25,7 @@ public final class BaseCommand {
 		return new BaseCommand(prefix, name);
 	}
 
-	public BaseCommand addArgument(PCCommandArgument argument) {
+	public BaseCommand addArgument(BaseCommandArgument argument) {
 		arguments.add(argument);
 
 		return this;

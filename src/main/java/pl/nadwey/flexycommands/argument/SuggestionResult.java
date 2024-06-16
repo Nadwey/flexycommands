@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public class SuggestionResult {
 
-	private List<String> suggestion;
+	private List<String> suggestions;
 	private String remaining;
 	private boolean shouldContinue;
 }

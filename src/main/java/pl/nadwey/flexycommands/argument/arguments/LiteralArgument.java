@@ -1,23 +1,24 @@
 package pl.nadwey.flexycommands.argument.arguments;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
-import pl.nadwey.flexycommands.argument.PCCommandArgument;
-import pl.nadwey.flexycommands.argument.ParseResult;
-import pl.nadwey.flexycommands.argument.SuggestionResult;
-import pl.nadwey.flexycommands.argument.VirtualParseResult;
+import lombok.AllArgsConstructor;
+import pl.nadwey.flexycommands.CommandContext;
+import pl.nadwey.flexycommands.argument.*;
 
-public class LiteralArgument extends PCCommandArgument {
-
+public class LiteralArgument extends ParentCommandArgument {
     public LiteralArgument(String name) {
         super(name);
     }
 
-    @Override
-    public ParseResult parse(String input) {
+    @AllArgsConstructor
+    private class LiteralArgumentParseResult {
+        private String entered;
+        private String remaining;
+        private boolean valid;
+    }
+
+    private LiteralArgumentParseResult parse(String input) {
         int i = input.indexOf(' ');
 
         String entered;
@@ -33,17 +34,24 @@ public class LiteralArgument extends PCCommandArgument {
 
         boolean valid = entered.equals(getName());
 
-        return new VirtualParseResult(null, remaining, valid, valid);
+        return new LiteralArgumentParseResult(entered, remaining, valid);
+    }
+
+    @Override
+    public ParseResult parse(CommandContext context, String input) {
+        LiteralArgumentParseResult result = parse(input);
+
+        return new ParseResult(result.remaining, result.valid, result.valid);
     }
 
     @Override
     public SuggestionResult suggest(String input) {
-        ParseResult result = parse(input);
+        LiteralArgumentParseResult result = parse(input);
 
         return new SuggestionResult(
                 Collections.singletonList(getName()),
-                result.getRemaining(),
-                result.isValid()
+                result.remaining,
+                result.valid
         );
     }
 }
