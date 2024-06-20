@@ -95,6 +95,12 @@ public class BukkitCommand extends Command {
 
         CommandContext context = new CommandContext(commandSender);
 
+        for (BaseCommandPermission permission : this.command.getPermissions()) {
+            if(!commandSender.hasPermission(String.valueOf(permission))) {
+                return false;
+            }
+        }
+
         for (BaseCommandArgument argument : this.command.getArguments()) {
             ParseResult result = argument.parse(context, input);
 
