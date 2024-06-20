@@ -52,6 +52,8 @@ public abstract class ParentCommandArgument extends BaseCommandArgument {
 
                     parentChild.parseChildren(context, result.getRemaining());
                 }
+            } else if (result.isValid() && child.getExecutor() != null) {
+                child.getExecutor().execute(context);
             }
         }
     }

@@ -93,7 +93,7 @@ public class BukkitCommand extends Command {
     ) {
         String input = String.join(" ", strings);
 
-        CommandContext context = new CommandContext();
+        CommandContext context = new CommandContext(commandSender);
 
         for (BaseCommandArgument argument : this.command.getArguments()) {
             ParseResult result = argument.parse(context, input);
@@ -103,11 +103,9 @@ public class BukkitCommand extends Command {
                     ParentCommandArgument parentArgument = (ParentCommandArgument) argument;
                     parentArgument.parseChildren(context, result.getRemaining());
                 }
+            } else if (result.isValid() && argument.getExecutor() != null) {
+                argument.getExecutor().execute(context);
             }
-        }
-
-        for (String key : context.getMap().keySet()) {
-            commandSender.sendMessage(key + ": " + context.get(key));
         }
 
         return true;
