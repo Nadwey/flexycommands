@@ -9,9 +9,13 @@ public abstract class BaseCommandPermission  {
 
     private CommandExecutor executor;
 
-    protected BaseCommandPermission(String name) {
+    private final String permissionMessage;
+
+    protected BaseCommandPermission(String name, String permissionMessage) {
         this.name = name;
+        this.permissionMessage = permissionMessage;
     }
+
 
     public BaseCommandPermission execute(CommandExecutor executor) {
         this.executor = executor;

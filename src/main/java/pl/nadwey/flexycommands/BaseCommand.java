@@ -20,13 +20,17 @@ public final class BaseCommand {
 	@Getter
 	private final List<BaseCommandPermission> permissions = new ArrayList<>();
 
-	private BaseCommand(String prefix, String name) {
+	@Getter
+	private String permissionMessage;
+
+	private BaseCommand(String prefix, String name, String permissionMessage) {
 		this.prefix = prefix;
 		this.name = name;
-	}
+        this.permissionMessage = permissionMessage;
+    }
 
 	public static BaseCommand create(String prefix, String name) {
-		return new BaseCommand(prefix, name);
+		return new BaseCommand(prefix, name, );
 	}
 
 	public BaseCommand addArgument(BaseCommandArgument argument) {
@@ -35,9 +39,9 @@ public final class BaseCommand {
 		return this;
 	}
 
-    public BaseCommand addPermission(BaseCommandPermission permission) {
+    public BaseCommand addPermission(BaseCommandPermission permission, String permissionMessages) {
 		permissions.add(permission);
-
+		permissionMessage = permissionMessages;
 		return this;
 	}
 

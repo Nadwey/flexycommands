@@ -95,10 +95,12 @@ public class BukkitCommand extends Command {
 
         CommandContext context = new CommandContext(commandSender);
 
-        for (BaseCommandPermission permission : this.command.getPermissions()) {
-            if(!commandSender.hasPermission(String.valueOf(permission))) {
-                return false;
-            }
+        boolean hasAtLeastOnePermission = this.command.getPermissions().stream()
+                .anyMatch(permission -> commandSender.hasPermission(String.valueOf(permission)));
+
+        if (!hasAtLeastOnePermission) {
+            commandSender.sendMessage(this.command.getPermissionMessage());
+            return true;
         }
 
         for (BaseCommandArgument argument : this.command.getArguments()) {
