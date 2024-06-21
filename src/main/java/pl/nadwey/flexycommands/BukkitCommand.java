@@ -100,7 +100,7 @@ public class BukkitCommand extends Command {
 
         if (!hasAtLeastOnePermission) {
             commandSender.sendMessage(this.command.getPermissionMessage());
-            return true;
+            return false;
         }
 
         for (BaseCommandArgument argument : this.command.getArguments()) {
