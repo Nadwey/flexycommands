@@ -6,10 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import pl.nadwey.flexycommands.argument.*;
+import pl.nadwey.flexycommands.argument.permissions.InvalidPermissionHandler;
 
 public class BukkitCommand extends Command {
 
     private final BaseCommand command;
+
+    private final InvalidPermissionHandler invalidPermissionHandler = new InvalidPermissionHandler();
 
     public BukkitCommand(BaseCommand command) {
         super(command.getName());
@@ -95,13 +98,15 @@ public class BukkitCommand extends Command {
 
         CommandContext context = new CommandContext(commandSender);
 
-        boolean hasAtLeastOnePermission = this.command.getPermissions().stream()
-                .anyMatch(permission -> commandSender.hasPermission(String.valueOf(permission)));
+         boolean hasPermission = invalidPermissionHandler.handle(
+                 commandSender,
+                 this.command.getPermission(),
+                 this.command.getPermissionMessage()
+         );
 
-        if (!hasAtLeastOnePermission) {
-            commandSender.sendMessage(this.command.getPermissionMessage());
-            return false;
-        }
+         if (!hasPermission) {
+             return false;
+         }
 
         for (BaseCommandArgument argument : this.command.getArguments()) {
             ParseResult result = argument.parse(context, input);

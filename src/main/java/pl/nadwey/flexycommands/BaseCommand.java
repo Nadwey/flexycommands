@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import pl.nadwey.flexycommands.argument.BaseCommandArgument;
-import pl.nadwey.flexycommands.argument.BaseCommandPermission;
 
 public final class BaseCommand {
 
@@ -17,20 +16,21 @@ public final class BaseCommand {
 	@Getter
 	private final List<BaseCommandArgument> arguments = new ArrayList<>();
 
+
 	@Getter
-	private final List<BaseCommandPermission> permissions = new ArrayList<>();
+	private final String permission;
 
 	@Getter
 	private String permissionMessage;
 
-	private BaseCommand(String prefix, String name, String permissionMessage) {
+	private BaseCommand(String prefix, String name, String permission) {
 		this.prefix = prefix;
 		this.name = name;
-        this.permissionMessage = permissionMessage;
+		this.permission = permission;
     }
 
-	public static BaseCommand create(String prefix, String name) {
-		return new BaseCommand(prefix, name, );
+	public static BaseCommand create(String prefix, String name, String  permission) {
+		return new BaseCommand(prefix, name, permission);
 	}
 
 	public BaseCommand addArgument(BaseCommandArgument argument) {
@@ -39,8 +39,8 @@ public final class BaseCommand {
 		return this;
 	}
 
-    public BaseCommand addPermission(BaseCommandPermission permission, String permissionMessages) {
-		permissions.add(permission);
+    public BaseCommand addPermission(String permission, String permissionMessages) {
+		permission = permission;
 		permissionMessage = permissionMessages;
 		return this;
 	}
