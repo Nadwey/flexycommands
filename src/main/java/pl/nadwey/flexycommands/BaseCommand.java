@@ -23,6 +23,7 @@ public final class BaseCommand {
 	@Getter
 	private String permissionMessage;
 
+
 	private BaseCommand(String prefix, String name, String permission) {
 		this.prefix = prefix;
 		this.name = name;
@@ -38,6 +39,12 @@ public final class BaseCommand {
 
 		return this;
 	}
+
+
+
+	public boolean  permissionExit() {
+        return permission != null;
+    }
 
     public BaseCommand addPermission(String permission, String permissionMessages) {
 		permission = permission;
