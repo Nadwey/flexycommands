@@ -98,14 +98,18 @@ public class BukkitCommand extends Command {
 
         CommandContext context = new CommandContext(commandSender);
 
-         boolean hasPermission = invalidPermissionHandler.handle(
-                 commandSender,
-                 this.command.getPermission(),
-                 this.command.getPermissionMessage()
-         );
+         boolean permissionExit = this.command.permissionExit();
+         if(permissionExit) {
 
-         if (!hasPermission) {
-             return false;
+             boolean hasPermission = invalidPermissionHandler.handle(
+                     commandSender,
+                     this.command.getPermission(),
+                     this.command.getPermissionMessage()
+             );
+
+             if (!hasPermission) {
+                 return false;
+             }
          }
 
         for (BaseCommandArgument argument : this.command.getArguments()) {

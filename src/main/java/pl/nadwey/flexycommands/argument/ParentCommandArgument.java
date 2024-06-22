@@ -23,6 +23,8 @@ public abstract class ParentCommandArgument extends BaseCommandArgument {
     public List<String> suggestChildren(String input) {
         List<String> suggestions = new ArrayList<>();
 
+
+
         for (BaseCommandArgument child : getChildren()) {
             SuggestionResult result = child.suggest(input);
 
