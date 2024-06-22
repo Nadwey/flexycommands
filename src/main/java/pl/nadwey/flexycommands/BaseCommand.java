@@ -18,7 +18,7 @@ public final class BaseCommand {
 
 
 	@Getter
-	private final String permission;
+	private  String permission;
 
 	@Getter
 	private String permissionMessage;
@@ -30,6 +30,11 @@ public final class BaseCommand {
 		this.permission = permission;
     }
 
+	private BaseCommand(String prefix, String name ) {
+		this.prefix = prefix;
+		this.name = name;
+	}
+
 	public static BaseCommand create(String prefix, String name, String  permission) {
 		return new BaseCommand(prefix, name, permission);
 	}
@@ -39,8 +44,6 @@ public final class BaseCommand {
 
 		return this;
 	}
-
-
 
 	public boolean  permissionExit() {
         return permission != null;

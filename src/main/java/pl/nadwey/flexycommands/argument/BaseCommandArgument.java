@@ -15,6 +15,11 @@ public abstract class BaseCommandArgument {
     @Getter
     private CommandExecutor executor;
 
+    protected BaseCommandArgument(String name, String permission) {
+        this.name = name;
+        this.permission = permission;
+    }
+
     protected BaseCommandArgument(String name) {
         this.name = name;
     }
@@ -25,9 +30,25 @@ public abstract class BaseCommandArgument {
 
     public abstract boolean hasChildren();
 
+    @Getter
+    private  String permission;
+
+    @Getter
+    public String permissionMessage;
+
     public BaseCommandArgument execute(CommandExecutor executor) {
         this.executor = executor;
 
+        return this;
+    }
+
+    public boolean  permissionExit() {
+        return permission != null;
+    }
+
+    public BaseCommandArgument addPermission(String permission, String permissionMessages) {
+        permission = permission;
+        permissionMessage = permissionMessages;
         return this;
     }
 }
