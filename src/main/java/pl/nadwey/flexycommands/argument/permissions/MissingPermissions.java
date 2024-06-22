@@ -11,5 +11,5 @@ public abstract class MissingPermissions {
         return sender.hasPermission(permission);
     }
 
-    public abstract void handle(CommandSender sender, String permission, String permissionMessage);
+    public abstract boolean handle(CommandSender sender, String permission, String permissionMessage);
 }
