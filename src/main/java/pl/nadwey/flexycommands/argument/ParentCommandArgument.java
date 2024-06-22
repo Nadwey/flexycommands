@@ -2,6 +2,7 @@ package pl.nadwey.flexycommands.argument;
 
 import lombok.Getter;
 import pl.nadwey.flexycommands.CommandContext;
+import pl.nadwey.flexycommands.argument.permissions.InvalidPermissionHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +15,8 @@ public abstract class ParentCommandArgument extends BaseCommandArgument {
     protected ParentCommandArgument(String name) {
         super(name);
     }
+
+    private final InvalidPermissionHandler invalidPermissionHandler = new InvalidPermissionHandler();
 
     @Override
     public boolean hasChildren() {
