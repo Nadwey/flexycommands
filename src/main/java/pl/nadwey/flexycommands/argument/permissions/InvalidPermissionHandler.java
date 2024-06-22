@@ -4,7 +4,6 @@ import org.bukkit.command.CommandSender;
 
 public class InvalidPermissionHandler extends MissingPermissions {
 
-        @Override
         public boolean handle(CommandSender sender, String permission, String permissionMessage) {
             if (!check(sender, permission)) {
                 sender.sendMessage(permissionMessage);
