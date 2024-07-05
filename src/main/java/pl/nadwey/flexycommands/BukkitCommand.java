@@ -36,9 +36,9 @@ public class BukkitCommand extends Command {
         String input = String.join(" ", strings);
         CommandContext context = new CommandContext(commandSender);
 
-         if(!commandSender.hasPermission(command.getPermission())) {
-             return false;
-         }
+        if (command.getPermission() != null && !command.getPermission().isEmpty() && !commandSender.hasPermission(command.getPermission())) {
+            return false;
+        }
 
         return this.command.executeChildren(context, input);
     }
