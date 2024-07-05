@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import lombok.AllArgsConstructor;
 import pl.nadwey.flexycommands.CommandContext;
+import pl.nadwey.flexycommands.SuggestionContext;
 import pl.nadwey.flexycommands.argument.ParentCommandArgument;
 import pl.nadwey.flexycommands.argument.ParseResult;
 import pl.nadwey.flexycommands.argument.SuggestionResult;
@@ -16,7 +17,7 @@ public class StringArgument extends ParentCommandArgument {
     @AllArgsConstructor
     static
     class StringArgumentParseResult {
-        String entered;
+        String value;
         String remaining;
         boolean shouldContinue;
     }
@@ -46,13 +47,13 @@ public class StringArgument extends ParentCommandArgument {
     public ParseResult parse(CommandContext context, String input) {
         StringArgumentParseResult result = parse(input);
 
-        context.set(getName(), result.entered);
+        context.set(getName(), result.value);
 
         return new ParseResult(result.remaining, true, result.shouldContinue);
     }
 
     @Override
-    public SuggestionResult suggest(String value) {
+    public SuggestionResult suggest(SuggestionContext context, String value) {
         StringArgumentParseResult result = parse(value);
 
         return new SuggestionResult(

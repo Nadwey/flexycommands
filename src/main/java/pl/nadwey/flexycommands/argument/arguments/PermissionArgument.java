@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
-import pl.nadwey.flexycommands.argument.ParentCommandArgument;
-import pl.nadwey.flexycommands.argument.ParseResult;
+import pl.nadwey.flexycommands.SuggestionContext;
 import pl.nadwey.flexycommands.argument.SuggestionResult;
 
 public class PermissionArgument extends StringArgument {
@@ -18,7 +17,7 @@ public class PermissionArgument extends StringArgument {
 	}
 
 	@Override
-	public SuggestionResult suggest(String value) {
+	public SuggestionResult suggest(SuggestionContext context, String value) {
 		StringArgumentParseResult result = parse(value);
 
 		List<String> permissions = plugin
@@ -27,7 +26,7 @@ public class PermissionArgument extends StringArgument {
 			.getPermissions()
 			.stream()
 			.map(Permission::getName)
-			.filter(permission -> permission.startsWith((String) result.entered))
+			.filter(permission -> permission.startsWith((String) result.value))
 			.collect(Collectors.toList());
 
 		return new SuggestionResult(

@@ -1,6 +1,7 @@
 package pl.nadwey.flexycommands.argument.arguments;
 
 import pl.nadwey.flexycommands.CommandContext;
+import pl.nadwey.flexycommands.SuggestionContext;
 import pl.nadwey.flexycommands.argument.*;
 import pl.nadwey.flexycommands.utility.TextUtils;
 
@@ -39,7 +40,7 @@ public class LiteralTreeArgument extends ParentCommandArgument {
     }
 
     @Override
-    public SuggestionResult suggest(String input) {
+    public SuggestionResult suggest(SuggestionContext context, String input) {
         int space = input.indexOf(' ');
 
         if (space == -1) {
@@ -55,7 +56,7 @@ public class LiteralTreeArgument extends ParentCommandArgument {
                 return new SuggestionResult(Collections.emptyList(), input, true);
             }
 
-            return argument.suggest(input);
+            return argument.suggest(context, input);
         }
 
         return new SuggestionResult(Collections.emptyList(), "", false);

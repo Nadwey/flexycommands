@@ -1,24 +1,14 @@
 package pl.nadwey.flexycommands.argument;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import pl.nadwey.flexycommands.CommandContext;
+import pl.nadwey.flexycommands.SuggestionContext;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+@Getter
 public abstract class BaseCommandArgument {
-    @Getter
     private final String name;
-
-    @Getter
+    private String permission;
     private CommandExecutor executor;
-
-    protected BaseCommandArgument(String name, String permission) {
-        this.name = name;
-        this.permission = permission;
-    }
 
     protected BaseCommandArgument(String name) {
         this.name = name;
@@ -26,15 +16,7 @@ public abstract class BaseCommandArgument {
 
     public abstract ParseResult parse(CommandContext context, String input);
 
-    public abstract SuggestionResult suggest(String input);
-
-    public abstract boolean hasChildren();
-
-    @Getter
-    private  String permission;
-
-    @Getter
-    public String permissionMessage;
+    public abstract SuggestionResult suggest(SuggestionContext context, String input);
 
     public BaseCommandArgument execute(CommandExecutor executor) {
         this.executor = executor;
@@ -42,13 +24,9 @@ public abstract class BaseCommandArgument {
         return this;
     }
 
-    public boolean  permissionExit() {
-        return permission != null;
-    }
+    public BaseCommandArgument permission(String permission) {
+        this.permission = permission;
 
-    public BaseCommandArgument addPermission(String permission, String permissionMessages) {
-        permission = permission;
-        permissionMessage = permissionMessages;
         return this;
     }
 }

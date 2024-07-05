@@ -6,7 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class ParseResult {
-
 	private String remaining;
 	private boolean valid;
 	private boolean shouldContinue;
