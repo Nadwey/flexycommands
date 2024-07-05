@@ -1,6 +1,10 @@
 package pl.nadwey.flexycommands.argument.arguments;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import pl.nadwey.flexycommands.CommandContext;
@@ -57,7 +61,7 @@ public class StringArgument extends ParentCommandArgument {
         StringArgumentParseResult result = parse(value);
 
         return new SuggestionResult(
-                Collections.emptyList(),
+                Collections.singletonList("<" + getName() + ">"),
                 result.remaining,
                 result.shouldContinue
         );
