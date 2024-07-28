@@ -9,7 +9,7 @@ import pl.nadwey.flexycommands.argument.SuggestionResult;
 import java.util.Collections;
 
 public class GreedyStringArgument extends BaseCommandArgument {
-    protected GreedyStringArgument(String name) {
+    public GreedyStringArgument(String name) {
         super(name);
     }
 
